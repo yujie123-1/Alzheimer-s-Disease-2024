@@ -8,10 +8,12 @@ In this project, it mainly includes four aspects, which are:
 * Multi-omics factor analys
 ## Gene Expression
 Changes in gene expression provide insights into disease mechanisms and drug development. In this project, we utilized `DESeq2` for differential gene expression analysis.
-
 ## Alternative Splicing
+Dysregulated alternative splicing has emerged as a mechanism broadly implicated in the pathogenesis of AD. In this project, we used `LeafCutter` for differential alternative splicing analysis.
 ## Alternative Polyadenylation
+Alternative polyadenylation is a prevalent transcriptional regulatory mechanism in eukaryotes. Dysregulation of this process can result in inefficient gene expression, potentially contributing to the development of AD. In this project, we employed `Dapars` for differential alternative polyadenylation analysis.
 ## Multi-Omics Factor Analysis
+
 # Contact
 # License
 
