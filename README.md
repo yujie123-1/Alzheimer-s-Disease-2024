@@ -15,6 +15,6 @@ Dysregulation of alternative polyadenylation can result in inefficient gene expr
 ## Multi-Omics Factor Analysis (MOFA)
 We used `MOFA2`, which is a factor analysis model that provides a general framework for the integration of multi-omic data sets in an unsupervised fashion, to integrate gene expression, alternative splicing, and alternative polyadenylation datasets of patients with AD and control to explore the complex pathogenesis of AD and the interrelated factors that contribute to its onset and progression.
 # Contact
-If you have any comments, suggestions, questions, bug reports, etc, feel free to contact Yujie Yang [(yj.yang1@siat.ac.cn)]().
+If you have any comments, suggestions, questions, bug reports, etc, feel free to contact Yujie Yang ([yj.yang1@siat.ac.cn]()).
 # License
 
