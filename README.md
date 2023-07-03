@@ -11,7 +11,7 @@ Changes in gene expression provide insights into disease mechanisms and drug dev
 ## Alternative Splicing
 Dysregulated alternative splicing has emerged as a mechanism broadly implicated in the pathogenesis of AD. In this project, we used `LeafCutter` for differential alternative splicing analysis.
 ## Alternative Polyadenylation
-Alternative polyadenylation is a prevalent transcriptional regulatory mechanism in eukaryotes. Dysregulation of this process can result in inefficient gene expression, potentially contributing to the development of AD. In this project, we employed `Dapars` for differential alternative polyadenylation analysis.
+Dysregulation of alternative polyadenylation can result in inefficient gene expression, potentially contributing to the development of AD. In this project, we employed `Dapars` for differential alternative polyadenylation analysis.
 ## Multi-Omics Factor Analysis (MOFA)
 We used `MOFA2`, which is a factor analysis model that provides a general framework for the integration of multi-omic data sets in an unsupervised fashion, to explore AD complex pathogenesis and interrelated factors that contribute to the onset and progression of AD.
 # Contact
