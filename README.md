@@ -13,7 +13,7 @@ Dysregulated alternative splicing has emerged as a mechanism broadly implicated 
 ## Alternative Polyadenylation
 Dysregulation of alternative polyadenylation can result in inefficient gene expression, potentially contributing to the development of AD. In this project, we employed `Dapars` for differential alternative polyadenylation analysis.
 ## Multi-Omics Factor Analysis (MOFA)
-We used `MOFA2`, which is a factor analysis model that provides a general framework for the integration of multi-omic data sets in an unsupervised fashion, to explore AD complex pathogenesis and interrelated factors that contribute to the onset and progression of AD.
+We used `MOFA2`, which is a factor analysis model that provides a general framework for the integration of multi-omic data sets in an unsupervised fashion, to integrate gene expression, alternative splicing, and alternative polyadenylation datasets of patients with AD and control to explore the complex pathogenesis of AD and the interrelated factors that contribute to its onset and progression.
 # Contact
 
 # License
