@@ -1,5 +1,5 @@
 <!--设置加彩色徽章-->
-![](https://img.shields.io/badge/R-XXX-blue)  ![](https://img.shields.io/badge/Python-XXX-blue)  ![](https://img.shields.io/badge/Linux-XXX-blue)
+![](https://img.shields.io/badge/R-4.2.3-blue)  ![](https://img.shields.io/badge/Python-3.10.2-blue)  ![](https://img.shields.io/badge/Ubuntu-20.04.2-blue)
 # Multi-Omics Factor Analysis in AD using RNA-seq Data
 Alzheimer’s disease (AD) is a complex neurodegenerative disorder that lacks effective clinical therapeutics and a detailed understanding of its pathogenic mechanisms. Previous research on the transcriptional-level pathogenic mechanisms of AD has elucidated the distinct characteristics of gene expression, RNA splicing, and post-transcriptional modifications in the brains of patients with AD. However, as these studies primarily focused on exploring AD pathogenesis from independent angles of transcriptional regulation, they did not comprehensively explore the integrated effects arising from diverse transcriptional layers. Therefore, we assessed the influence of 3 transcriptional layers—gene expression, alternative splicing, and alternative polyadenylation—on AD by integrating analysis using RNA sequencing data from patients with AD and controls. 
 # Bioinformatic Methods
