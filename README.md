@@ -7,6 +7,7 @@ In this project, it mainly includes four aspects, which are:
 * Alternative polyadenylation
 * Multi-omics factor analys
 ## Gene Expression
+Changes in gene expression provide insights into disease mechanisms and drug development. In this project, we utilized `DESeq2` for differential gene expression analysis.
 
 ## Alternative Splicing
 ## Alternative Polyadenylation
