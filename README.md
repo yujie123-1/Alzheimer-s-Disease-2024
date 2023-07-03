@@ -17,4 +17,4 @@ We used `MOFA2`, which is a factor analysis model that provides a general framew
 # Contact
 If you have any comments, suggestions, questions, bug reports, etc, feel free to contact Yujie Yang ([yj.yang1@siat.ac.cn]()).
 # License
-
+LicenseFinder is released under the [MIT](http://www.opensource.org/licenses/mit-license) License. 
