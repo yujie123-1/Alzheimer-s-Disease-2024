@@ -307,7 +307,7 @@ ggsave("MANOVA.pdf", width = 8, height = 7)
 sample <- read.csv("SampleDistribution.csv",header = T)
 p <- ggplot(sample,aes(x=reorder(Region,-Number),y=Number,fill=Region))+
   geom_bar(stat="identity")+
-ggsave("SampleDistribution.pdf",width = 8, height = 7)
+  ggsave("SampleDistribution.pdf",width = 8, height = 7)
 
 
 
@@ -626,26 +626,15 @@ write.csv(AD_Healthyres_kegg,file = "AD_Healthyres_kegg_genelist0.05and0.585.csv
 
 
 #####绘制Volcano plot#####
-library(dplyr)
 up <- subset(AD_Healthyres, AD_Healthyres$change == 'Up')
 up <- arrange(up,padj,log2FoldChange)
 up <- up[order(up$padj), ][1:10, ]
 down <- subset(AD_Healthyres, AD_Healthyres$change == 'Down')
 down <- down[order(down$padj), ][1:10, ]
 a <- rbind(up, down)
-library(ggplot2)
-library(ggrepel)
 p <- ggplot(
-  AD_Healthyres, aes(x = log2FoldChange, y = -log10(padj),colour=change)) +
-  geom_point(aes(color = change), size=2) +
-  scale_color_manual(values = c("#008080", "gray", "firebrick3")) +
-  geom_text_repel(data = rbind(up, down), aes(x = log2FoldChange, y = -log10(padj), label = rownames(a)),
-                  size = 5,box.padding = unit(0.5, 'lines'), segment.color = 'black', show.legend = FALSE,
-                  color = "black",max.overlaps=100)+
-  geom_vline(xintercept=c(-0.585,0.585),lty=4,col="#666666",lwd=0.5) +
-  geom_hline(yintercept = -(log10(0.05)),lty=4,col="#666666",lwd=0.5) 
-ggsave("AD_Healthy_volcano0.50.585.pdf", egg::set_panel_size(p, width=unit(5, "in"), height=unit(5, "in")), 
-       width = 7, height = 6, units = 'in', dpi = 600)
+  AD_Healthyres, aes(x = log2FoldChange, y = -log10(padj),colour=change)) 
+ggsave("AD_Healthy_volcano0.50.585.pdf", width = 7, height = 6)
 
 
 
@@ -654,15 +643,9 @@ ggsave("AD_Healthy_volcano0.50.585.pdf", egg::set_panel_size(p, width=unit(5, "i
 
 
 #####绘制热图#####
-rm(list = ls())
 AD_Healthyres <- read.csv("Temporal_Lobe_ADvsHealthy_DEseq2.csv",header = T,row.names = 1)
-table(AD_Healthyres$padj<0.05 & abs(AD_Healthyres$log2FoldChange)>0.585 )    ##看下p小于0.05的有多少
 AD_Healthyres <- AD_Healthyres[order(AD_Healthyres$padj,decreasing = F),]
-head(AD_Healthyres)
 choose_gene <-subset(AD_Healthyres, AD_Healthyres$padj < 0.05 & abs(AD_Healthyres$log2FoldChange) >0.585)
-dim(choose_gene)
-
-
 MostSigGene <- read.csv("MostSignificantGene.csv",header = T,row.names = 1)
 
 
@@ -671,8 +654,6 @@ setwd("E:/AD_Patient/STARFeatureCount/result/ReAnalysis")
 myfpkm <- read.csv(file = "TemporalLobeFPKM_RemoveBatch_20220831.csv",header = T ,row.names = 1)
 a <- gsub(pattern = '\\.\\d*',replacement = '',x=rownames(myfpkm))
 rownames(myfpkm) <- a
-library(clusterProfiler)
-library(org.Hs.eg.db)
 df1 <- bitr(a, fromType = "ENSEMBL",
             toType = c("SYMBOL"),
             OrgDb = org.Hs.eg.db)
@@ -689,8 +670,6 @@ BackgroundInformation <- read.csv("BackgroundInformation.csv",header = T )
 AD_Healthyres_heatmap <- as.data.frame(t(AD_Healthyres_heatmap))
 AD_Healthyres_heatmap$GSM_number <- rownames(AD_Healthyres_heatmap)
 sum <- merge(AD_Healthyres_heatmap,BackgroundInformation,by = "GSM_number",all= FALSE)
-sum[5,1340:1351]
-sum[5,1:5]
 rownames(sum) <- sum$Sample
 sum <- arrange(sum,rownames(sum))
 data <- sum[-c(1,1343:1351)]
@@ -699,21 +678,14 @@ data$cv <- apply(data, 1, function(x){
   sd(x)/mean(x)*100
 })
 data_df <- data[order(data$cv, decreasing = T),1:354]
-dim(data_df)
 a <- apply(data_df,1,scale)
 data_scale <- as.data.frame(t(apply(data_df,1,scale)))
 names(data_scale) <- names(data_df)
 data_scale[is.na(data_scale)] <- min(data_scale,na.rm = T)*0.01
 data_scale <- as.matrix(data_scale)
-table((data_scale)>2)
-table((data_scale)<(-2))
 data_scale[data_scale>=2]=2
 data_scale[data_scale<=-2]=-2
-library(ComplexHeatmap)
-library(circlize)
-
 pdf(file = "Heatmap1.pdf",width =3,height = 4)
-
 p <- Heatmap(data_scale,name = "Expression")
 print(p)
 dev.off()
@@ -726,78 +698,29 @@ dev.off()
 
 
 #####对差异基因进行WGCNA分析之后寻找基因和表型之间的关系####
-rm(list = ls())
-setwd("E:/AD_Patient/STARFeatureCount/result/ReAnalysis")
-#加载背景信息，其中包括APOE的类型
 BackgroundInformationAPOE <- read.csv("BackgroundInformationAPOE.csv",header = T)
 gene <- read.csv("Temporal_Lobe_ADvsHealthy_DEseq2_Significant.csv",header = T,row.names = 1)
-
 myfpkm <- read.csv("TemporalLobeFPKM_RemoveBatch_20220831.csv",header = T,row.names = 1)
 a <- gsub(pattern = '\\.\\d*',replacement = '',x=rownames(myfpkm))
 rownames(myfpkm) <- a
-library(clusterProfiler)
-library(org.Hs.eg.db)
 df1 <- bitr(a, fromType = "ENSEMBL",
             toType = c("SYMBOL"),
             OrgDb = org.Hs.eg.db)
-
-
 df1 <- df1[!duplicated(df1$SYMBOL),]
 myfpkm$ENSEMBL <- rownames(myfpkm)
 df <- merge(df1,myfpkm,by="ENSEMBL",all=FALSE)
 rownames(df) <- df$SYMBOL
 myfpkm <- df[,-c(1:2)]
-
 sig_FPKM <- subset(myfpkm,rownames(myfpkm) %in% rownames(gene))
 sig_FPKM <- as.data.frame(t(sig_FPKM))
-library(WGCNA)
 gsg <- goodSamplesGenes(sig_FPKM, verbose=3)
-gsg
-
-
 BackgroundInformation <- subset(BackgroundInformationAPOE,BackgroundInformationAPOE$GSM_number %in% rownames(sig_FPKM))
 rownames(BackgroundInformation) <- BackgroundInformation$GSM_number
 BackgroundInformation <- BackgroundInformation[,-c(1,2,8,9,10)]
-
-
-
-
-library(dplyr)
-colnames(BackgroundInformation)
-
-BackgroundInformation <- BackgroundInformation%>%mutate(Phenotypedit=case_when(BackgroundInformation$Phenotypedit=="noE4"~"0",
-                                                                               BackgroundInformation$Phenotypedit=="E4carrier"~"1",
-                                                                               BackgroundInformation$Phenotypedit=="E4/4"~"2"))
-
-BackgroundInformation$Phenotypedit <- as.integer(BackgroundInformation$Phenotypedit)
-sampleTree <- hclust(dist(sig_FPKM), method="average")
-sizeGrWindow(2, 2)
-par(cex=0.6)
-par(mar=c(0,4,2,0))
-plot(sampleTree, main="Sample clustering to detect outliers", sub="",
-     xlab="", cex.lab=1.5, 
-     cex.axis=1.5, cex.main=2)
-
-
-
-sampleTree2 <- hclust(dist(sig_FPKM), method="average")
-traitColors <- numbers2colors(BackgroundInformation, signed=F)
-plotDendroAndColors(sampleTree2, traitColors,
-                    groupLabels=colnames(BackgroundInformation), 
-                    main="Sample dendrogram and trait heatmap")
-
-
-
-# 软阈值的预设范围
 powers <- c(c(1:10), seq(from=12, to=50, by=2))
-# 自动计算推荐的软阈值
-library("doParallel")
 sft <- pickSoftThreshold(sig_FPKM, powerVector=powers, verbose=5, networkType="unsigned")
 sft$powerEstimate <- 9
-
-
 cor <- WGCNA::cor
-
 net <- blockwiseModules(sig_FPKM, power = sft$powerEstimate,
                         TOMType = "unsigned", minModuleSize = 30,
                         reassignThreshold = 0, mergeCutHeight = 0.25,
@@ -806,9 +729,7 @@ net <- blockwiseModules(sig_FPKM, power = sft$powerEstimate,
                         saveTOMFileBase = "ADPatientTOM", 
                         verbose = 3)
 cor<-stats::cor
-
 sizeGrWindow(2, 2)
-# 把模块编号转成颜色
 mergedColors <- labels2colors(net$colors)
 pdf(file = "Module_colors.pdf",width =5,height = 3,bg = "white")
 p1 <- plotDendroAndColors(net$dendrograms[[1]], mergedColors[net$blockGenes[[1]]],
@@ -826,33 +747,19 @@ moduleLabels <- net$colors
 moduleColors <- labels2colors(net$colors)
 MEs <- net$MEs
 geneTree <- net$dendrograms[[1]]
-# 保存数据
 save(MEs, moduleLabels, moduleColors, geneTree,
      file="networkConstruction-auto.RData")
-
-
-
-library(WGCNA)
-options(stringsAsFactors=F)
-
-allowWGCNAThreads()
-
-
 nGenes = ncol(sig_FPKM)
 nSamples = nrow(sig_FPKM)
 a <- moduleEigengenes(sig_FPKM, moduleColors)
 MEs0 = moduleEigengenes(sig_FPKM, moduleColors)$eigengenes
-
 identical(rownames(MEs0),rownames(BackgroundInformation))
 moduleTraitCor = cor(MEs0, BackgroundInformation,use = 'p',method = "spearman")
 moduleTraitPvalue = corPvalueStudent(moduleTraitCor, nSamples)
-
-
 sizeGrWindow(2,2)
 textMatrix <-  paste(signif(moduleTraitCor, 2), "\n(",
                      signif(moduleTraitPvalue, 1), ")", sep = "");
 dim(textMatrix) <- dim(moduleTraitCor)
-colnames(BackgroundInformation)
 colnames(BackgroundInformation)[6] <- "APOE"
 colnames(BackgroundInformation)[2] <- "Braak Stage"
 colnames(BackgroundInformation)[5] <- "Bank Location"
@@ -1402,44 +1309,6 @@ ggexport(plotlist = plot_list, width = 4, height = 4,bg = "white",
 
 date()
 sessionInfo()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
