@@ -6,6 +6,7 @@ LeafCutter can pinpoint different alternative splicing events, including
 (2) 5' or 3' exon extension.
 (3) Complex splicing.
 (4) Exon skipping or alternative start or end. 
+
 ![image](https://github.com/yujie123-1/Alzheimer-s-Disease-2024/assets/74124083/9a4a3c9d-24a2-4dd4-9720-03b18196c247)
 
 # The principle of alternative splicing annotation.
