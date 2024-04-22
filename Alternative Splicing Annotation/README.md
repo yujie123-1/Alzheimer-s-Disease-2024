@@ -44,5 +44,8 @@ chr1:668593:672093:clu_2 11 16 23 10 3 20 9 6 23 31
 ```
 Each column corresponds to a different sample (original bam file) and each row to an intron, which is identified as chromosome:intron_start:intron_end:cluster_id.
 
+# Contact
+If you have any comments, suggestions, questions, bug reports, etc, feel free to contact Yujie Yang ([yj.yang1@siat.ac.cn]()).
+
 # License
 LicenseFinder is released under the [MIT](http://www.opensource.org/licenses/mit-license) License. 
