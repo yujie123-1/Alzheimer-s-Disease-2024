@@ -11,12 +11,9 @@ LeafCutter can pinpoint different alternative splicing events, including
 
 # The principle of alternative splicing annotation.
 the annotation is based on clusters. It involves three steps: 
-* Checking chromosomal position of the cluster.
-* Confirming if the base positions of the cluster overlaps exon start and end positions.
-* Counting the number of unique base positions within the cluster.
-
-## The specific process is as follows:
-If chromosomal position of each cluster falls outside the range of the human genome chromosomes, the annotation is "no alternative splicing event was found". If chromosomal position is within human genome range, and base positions within the cluster overlap exon start and end points, we count the unique base positions number of this cluster. If the number is greater than three, the AS event of this cluster is annotated as "complex splicing"; if it is less than or equal to three, it is annotated as "5’ or 3’ exon extension". If base positions within the cluster don't overlap exon points, and the unique base positions number in this cluster is equal to four, the AS event is annotated as "exon skipping"; if it is not equal to four, it is annotated as "exon skipping or alternative start or end event". 
+* Sorting all introns within a cluster according to their starting positions.
+* Checking for exons between the minimum and maximum positions in the cluster.
+* Generating plot of all exons and intron positions in the cluster.
 
 ## The files involved in the annotation process:
 * Human exon information file
